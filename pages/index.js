@@ -1,43 +1,56 @@
+import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/componentes/CSSreset";
-import Menu from "../src/componentes/Menu";
+import Menu from "../src/componentes/Menu/Menu";
 import { StyledTimeline } from "../src/componentes/Timeline";
+import Favoritos from "../src/componentes/Favoritos";
 const HomePage = () => {
   const cor = { backgroundColor: "white" };
-  console.log(config.playlist);
+  const [valorDoFiltro, setValorDoFiltro] = React.useState("");
+
   return (
     <>
       <CSSReset />
 
       <div style={cor}>
-        <Menu />
+        <Menu
+          valorDoFiltro={valorDoFiltro}
+          setValorDoFiltro={setValorDoFiltro}
+        />
         <Header />
-        <TimeLine playlist={config.playlist} />
+        <TimeLine searchValue={valorDoFiltro} playlist={config.playlist} />
+        <Favoritos favorito={config.fav} />
       </div>
     </>
   );
 };
 
 const StyledHeader = styled.div`
-  img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+  .banner {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
   }
   .user-info {
-    margin-top: 50px;
+    margin-top: 32px;
     display: flex;
     align-items: center;
     width: 100%;
     padding: 16px 32px;
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
   }
 `;
 
 function Header() {
   return (
     <StyledHeader>
-      <img src="" />
+      <img className="banner" src={config.banner} />
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} />
         <div>
@@ -49,25 +62,30 @@ function Header() {
   );
 }
 
-function TimeLine(props) {
-  console.log("dentro do componente", props.playlist);
+function TimeLine({ searchValue, ...props }) {
   const playlistNomes = Object.keys(props.playlist);
   return (
     <StyledTimeline>
       {playlistNomes.map((playlistNomes) => {
         const videos = props.playlist[playlistNomes];
         return (
-          <section>
+          <section key={playlistNomes}>
             <h2>{playlistNomes}</h2>
             <div>
-              {videos.map((video) => {
-                return (
-                  <a href={video.url}>
-                    <img src={video.thumb} />
-                    <span> {video.title}</span>
-                  </a>
-                );
-              })}
+              {videos
+                .filter((video) => {
+                  const titleNormalized = video.title.toLowerCase();
+                  const searchValueNormalized = searchValue.toLowerCase();
+                  return titleNormalized.includes(searchValueNormalized);
+                })
+                .map((video) => {
+                  return (
+                    <a key={video.url} href={video.url}>
+                      <img src={video.thumb} />
+                      <span> {video.title}</span>
+                    </a>
+                  );
+                })}
             </div>
           </section>
         );
