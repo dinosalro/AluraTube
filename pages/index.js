@@ -1,19 +1,15 @@
 import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
-import { CSSReset } from "../src/componentes/CSSreset";
 import Menu from "../src/componentes/Menu/Menu";
 import { StyledTimeline } from "../src/componentes/Timeline";
 import Favoritos from "../src/componentes/Favoritos";
 const HomePage = () => {
-  const cor = { backgroundColor: "white" };
   const [valorDoFiltro, setValorDoFiltro] = React.useState("");
 
   return (
     <>
-      <CSSReset />
-
-      <div style={cor}>
+      <div>
         <Menu
           valorDoFiltro={valorDoFiltro}
           setValorDoFiltro={setValorDoFiltro}
@@ -27,6 +23,8 @@ const HomePage = () => {
 };
 
 const StyledHeader = styled.div`
+  background-color: ${({ theme }) => theme.backgroundLevel1};
+
   .banner {
     width: 100%;
     height: 30vh;
