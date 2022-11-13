@@ -4,6 +4,7 @@ import ColorModeProvider, {
   ColorModeContext,
 } from "../src/componentes/Menu/ColorModeProvider";
 import { CSSReset } from "../src/componentes/CSSreset";
+import Register from "../src/componentes/RegisterVideo/Register";
 
 const theme = {
   light: {
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme[contexto.mode]}>
       <CSSReset />
       <Component {...pageProps} />
+      <Register />
     </ThemeProvider>
   );
 }
