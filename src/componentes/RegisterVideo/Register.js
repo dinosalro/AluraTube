@@ -28,8 +28,8 @@ const Register = () => {
   const formCadastro = useForm({
     initialValue: {
       titulo: "",
-      url: "https://www.youtube.com/watch?v=QsqatJxAUtk",
-      playlist: "",
+      url: "",
+      playlist: "Aleatório",
     },
   });
   const [formVisivel, setFormVisivel] = React.useState(false);
@@ -82,12 +82,16 @@ const Register = () => {
               onChange={formCadastro.handleChange}
               name="url"
             />
-            <input
+            <select
               placeholder="Playlist"
               value={formCadastro.values.playlist}
               onChange={formCadastro.handleChange}
               name="playlist"
-            />
+            >
+              <option value="AnnaBee">AnnaBee</option>
+              <option value="Músicas">Músicas</option>
+              <option value="Aleatório">Aleatório</option>
+            </select>
             <button type="submit">Cadastrar</button>
           </div>
         </form>

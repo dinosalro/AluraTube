@@ -64,8 +64,8 @@ const StyledHeader = styled.div`
     width: 100%;
     padding: 16px 32px;
     img {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       margin-right: 15px;
     }
